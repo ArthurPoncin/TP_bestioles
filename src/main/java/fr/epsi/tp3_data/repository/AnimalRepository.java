@@ -20,6 +20,6 @@ public interface AnimalRepository extends JpaRepository<Animal, Long> {
     @Query("SELECT COUNT(a) FROM Animal a WHERE a.sex = :sex")
     long countBySex(@Param("sex") String sex);
 
-    @Query("SELECT (COUNT(a.owners) > 0) FROM Animal a WHERE a = :animal")
+    @Query("SELECT (SIZE(a.owners) > 0) FROM Animal a WHERE a = :animal")
     boolean isAnimalOwned(@Param("animal") Animal animal);
 }
