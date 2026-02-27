@@ -14,6 +14,7 @@ import fr.epsi.tp3_data.repository.AnimalRepository;
 import fr.epsi.tp3_data.repository.PersonRepository;
 import fr.epsi.tp3_data.repository.RoleRepository;
 import fr.epsi.tp3_data.repository.SpeciesRepository;
+import jakarta.transaction.Transactional;
 
 @SpringBootApplication
 public class Tp3DataApplication implements CommandLineRunner {
@@ -32,6 +33,7 @@ public class Tp3DataApplication implements CommandLineRunner {
 	}
 
 	@Override
+	@Transactional
 	public void run(String... args) throws Exception {
 		System.out.println("==== Début des tests ====");
 
@@ -49,7 +51,7 @@ public class Tp3DataApplication implements CommandLineRunner {
 				+ " sexe: " + firstAnimal.getSex() + " appartient à l'espèce "
 				+ firstAnimal.getSpecies().getCommonName());
 
-		Person firstPerson = personRepository.findById(1L).orElse(null);
+		Person firstPerson = persons.get(0);
 		Animal newAnimal = new Animal(null, "Rex", "Marron", "Mâle", List.of(firstPerson), species.get(0));
 		animalRepository.save(newAnimal);
 		System.out.println("[save] Nouvel animal enregistré : " + newAnimal);
@@ -60,6 +62,19 @@ public class Tp3DataApplication implements CommandLineRunner {
 		List<Animal> animalsBySpecies = animalRepository.findBySpecies(species.get(0));
 		System.out.println("[findBySpecies] Animaux de l'espèce " + species.get(0).getCommonName() + " : "
 				+ animalsBySpecies.size());
+
+		Person personWithoutAnimals = new Person(null, "Jean", "Dupont", "jdupont", "password", 30, 1, List.of(),
+				List.of());
+		personRepository.save(personWithoutAnimals);
+		System.out.println("[save] Personne sans animaux enregistrée : " + personWithoutAnimals.getFirstName() + " "
+				+ personWithoutAnimals.getLastName());
+		personRepository.deletePersonWithoutAnimals();
+		System.out.println(
+				personRepository.count() + " personnes trouvées après suppression des personnes sans animaux.");
+
+		personRepository.generateRandomPersons(5);
+		System.out.println("[generateRandomPersons] 5 personnes aléatoires générées. Total de personnes : "
+				+ personRepository.count());
 	}
 
 	public static void main(String[] args) {
