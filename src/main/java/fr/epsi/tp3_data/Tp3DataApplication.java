@@ -33,7 +33,6 @@ public class Tp3DataApplication implements CommandLineRunner {
 	}
 
 	@Override
-	@Transactional
 	public void run(String... args) throws Exception {
 		System.out.println("==== Début des tests ====");
 

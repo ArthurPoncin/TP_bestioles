@@ -10,7 +10,6 @@ public class PersonRepositoryCustomImpl implements PersonRepositoryCustom {
     @PersistenceContext
     private EntityManager em;
 
-    @Override
     @Transactional
     public void deletePersonWithoutAnimals() {
         String query = "DELETE FROM Person p WHERE p.animals IS EMPTY";
@@ -18,7 +17,6 @@ public class PersonRepositoryCustomImpl implements PersonRepositoryCustom {
                 .executeUpdate();
     }
 
-    @Override
     @Transactional
     public void generateRandomPersons(Integer count) {
         for (int i = 0; i < count; i++) {
