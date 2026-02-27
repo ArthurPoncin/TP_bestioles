@@ -56,6 +56,10 @@ public class Tp3DataApplication implements CommandLineRunner {
 		animalRepository.deleteById(newAnimal.getId());
 		System.out.println("[delete] Animal supprimé ID: " + newAnimal.getId());
 		System.out.println("[findAll] Animaux trouvés : " + animalRepository.count());
+
+		List<Animal> animalsBySpecies = animalRepository.findBySpecies(species.get(0));
+		System.out.println("[findBySpecies] Animaux de l'espèce " + species.get(0).getCommonName() + " : "
+				+ animalsBySpecies.size());
 	}
 
 	public static void main(String[] args) {

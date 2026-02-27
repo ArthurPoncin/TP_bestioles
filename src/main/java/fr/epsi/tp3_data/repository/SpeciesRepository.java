@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import fr.epsi.tp3_data.model.Species;
@@ -14,4 +15,9 @@ public interface SpeciesRepository extends JpaRepository<Species, Long> {
 
     public List<Species> findByLatinNameContainingIgnoreCase(String latinName);
 
+    @Query("SELECT s FROM Species s ORDER BY s.commonName ASC")
+    public List<Species> findAllCommonNamesOrdered();
+
+    @Query("SELECT s FROM Species s WHERE s.commonName LIKE CONCAT('%', :arg, '%')")
+    public List<Species> findByCommonNameLike(String arg);
 }
