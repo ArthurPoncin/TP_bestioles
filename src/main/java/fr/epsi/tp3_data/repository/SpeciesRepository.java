@@ -12,6 +12,6 @@ import fr.epsi.tp3_data.model.Species;
 public interface SpeciesRepository extends JpaRepository<Species, Long> {
     public Optional<Species> findFirstByCommonName(String commonName);
 
-    public List<Species> findByLatinName(String latinName);
+    public List<Species> findByLatinNameContainingIgnoreCase(String latinName);
 
 }
