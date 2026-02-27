@@ -25,7 +25,7 @@ public class PersonRepositoryCustomImpl implements PersonRepositoryCustom {
             Person person = new Person();
             person.setFirstName("FirstName" + i);
             person.setLastName("LastName" + i);
-            person.setLogin("user" + i);
+            person.setLogin("user" + i + "_" + System.currentTimeMillis());
             person.setMdp("password" + i);
             person.setAge(20 + i);
             person.setActive(1);
